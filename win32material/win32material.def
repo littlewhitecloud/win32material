@@ -1,4 +1,3 @@
-; win32material.def - Define the functions that needs to be exported
 ; win32material.def & win32material.c -> win32material.dll
 LIBRARY win32material.dll
 EXPORTS

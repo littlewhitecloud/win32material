@@ -8,47 +8,75 @@
 #pragma comment(lib, "User32.lib")
 
 static void ExtendFrameIntoClientArea(const HWND hwnd)
-{
+{   
+    // Set the margins
     const MARGINS margins = {-1, -1, -1, -1};
+    // Extend frame into  client area
     DwmExtendFrameIntoClientArea(hwnd, &margins);
 }
 
-static void ApplyBlurBehind(const HWND hwnd, const bool theme, const DWORD hexcolor, const bool type)
-{ // Windows 10 & 11
+static void ApplyBlurEffect(const HWND hwnd, const bool theme, const DWORD hexcolor, const bool flag)
+{
     // TODO: hex color
     pfnSetWindowCompositionAttribute SetWindowCompositionAttribute = (pfnSetWindowCompositionAttribute)GetProcAddress(GetModuleHandle("user32.dll"), "SetWindowCompositionAttribute");
 
-    ACCENT_POLICY accentpolicy = { type ? ACCENT_ENABLE_ACRYLICBEHIND : ACCENT_ENABLE_BLURBEHIND, type ? 2 : 0, type ? theme ? 1074926098: 0 : 0, 0};
+    // Set the color value
+    DWORD color = flag ? theme ? 1074926098 : 0 : 0;
+    // Set the enable flag
+    DWORD enable = flag ? theme ? 2 : 0 : 0;
+    // Determine the type of the blur
+    ACCENT_STATE type = flag ? ACCENT_ENABLE_ACRYLICBEHIND : ACCENT_ENABLE_BLURBEHIND;
+    
+    // Set the Accent Policy
+    ACCENT_POLICY accentpolicy = {type, enable, color, 0};
 
+    // Set the WindowCompositionArrtibuteData
     WINDOWCOMPOSITIONATTRIBDATA data;
     data.Attrib = WCA_ACCENT_POLICY;
     data.pvData = &accentpolicy;
     data.cbData = sizeof(accentpolicy);
 
+    // Set the window's theme
     DwmSetWindowAttribute(hwnd, 20, &theme, sizeof(int));
+    // Set the window's backdrop
     SetWindowCompositionAttribute(hwnd, &data);
+}
+
+static void ApplyMicaEffect(const HWND hwnd, const bool theme, const bool micaalt, const bool extend, const bool flag) {
+    // Set the mica value
+    const int value = flag ? micaalt ? 0x04 : 0x02 : micaalt ? 0x04: 0x01;
+    // Set the mica entry
+    const int entry = flag ? 38 : 1029;
+
+    if (extend) // extend frame into client area
+        ExtendFrameIntoClientArea(hwnd);
+
+    // Set the window's theme
+    DwmSetWindowAttribute(hwnd, 20, &theme, sizeof(int));
+    // Set the window's backdrop
+    DwmSetWindowAttribute(hwnd, entry, &value, sizeof(int));
 }
 
 void ApplyBlur(const HWND hwnd, const bool theme, const DWORD hexcolor)
 {
     /*
-    Windows 10 & 11
+    Windows 10 ~ 11
     hwnd: HWND : the window's hwnd
     theme: bool : the window's theme
     hexcolor: DWORD : the blur's hexcolor
     */
-    ApplyBlurBehind(hwnd, theme, hexcolor, false);
+    ApplyBlurEffect(hwnd, theme, hexcolor, false);
 }
 
 void ApplyAcrylic(const HWND hwnd, const bool theme, const DWORD hexcolor)
 {
     /*
-    Windows 10 & 11
+    Windows 10 ~ 11
     hwnd: HWND : the window's hwnd
     theme: bool : the window's theme
     hexcolor: DWORD : the blur's hexcolor
     */
-    ApplyBlurBehind(hwnd, theme, hexcolor, true);
+    ApplyBlurEffect(hwnd, theme, hexcolor, true);
 }
 
 void ApplyDocumentMica(const HWND hwnd, const bool theme, const bool micaalt, const bool extend)
@@ -60,15 +88,7 @@ void ApplyDocumentMica(const HWND hwnd, const bool theme, const bool micaalt, co
         micaalt: bool : determine which type of mica
         extend: bool : extend to the client area
     */
-    const int value = micaalt ? 0x04 : 0x02;
-
-    if (extend)
-        ExtendFrameIntoClientArea(hwnd);
-
-    // Set the window's theme
-    DwmSetWindowAttribute(hwnd, 20, &theme, sizeof(int));
-    // Set the window's backdrop
-	DwmSetWindowAttribute(hwnd, 38, &value, sizeof(int));
+    ApplyMicaEffect(hwnd, theme, micaalt, extend, true);
 }
 
 void ApplyUndocumentMica(const HWND hwnd, const bool theme, const bool micaalt, const bool extend)
@@ -80,13 +100,5 @@ void ApplyUndocumentMica(const HWND hwnd, const bool theme, const bool micaalt, 
     micaalt: bool : determine which type of mica
     extend: bool : extend to the client area
     */
-    const int value = micaalt ? 0x04 : 0x01;
-
-    if (extend)
-        ExtendFrameIntoClientArea(hwnd);
-
-    // Set the window's theme
-	DwmSetWindowAttribute(hwnd, 20, &theme, sizeof(int));
-    // Set the window's backdrop
-    DwmSetWindowAttribute(hwnd, 1029, &value, sizeof(int));
+    ApplyMicaEffect(hwnd, theme, micaalt, extend, false)
 }
