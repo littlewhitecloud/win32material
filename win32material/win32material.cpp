@@ -100,5 +100,5 @@ void ApplyUndocumentMica(const HWND hwnd, const bool theme, const bool micaalt, 
     micaalt: bool : determine which type of mica
     extend: bool : extend to the client area
     */
-    ApplyMicaEffect(hwnd, theme, micaalt, extend, false)
+    ApplyMicaEffect(hwnd, theme, micaalt, extend, false);
 }
