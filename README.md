@@ -1,4 +1,4 @@
-# win32material
+# win32style
 Apply some window effects to the Win32 Applications
 
 ## Installation
