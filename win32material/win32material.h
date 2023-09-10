@@ -67,8 +67,12 @@ typedef BOOL(WINAPI *pfnSetWindowCompositionAttribute)(HWND, WINDOWCOMPOSITIONAT
 #endif
 
 extern "C" {
-    DLLEXPORT void ApplyAcrylic(const HWND hwnd, const bool theme, const DWORD hexcolor);
-    DLLEXPORT void ApplyBlur(const HWND hwnd, const bool theme, const DWORD hexcolor);
-    DLLEXPORT void ApplyDocumentMica(const HWND hwnd, const bool theme, const bool micaalt, const bool extend);
-    DLLEXPORT void ApplyUndocumentMica(const HWND hwnd, const bool theme, const bool micaalt, const bool extend);
+    DLLEXPORT void ApplyAcrylic( HWND hwnd, bool theme, DWORD hexcolor);
+    DLLEXPORT void ApplyBlur( HWND hwnd, bool theme, DWORD hexcolor);
+    DLLEXPORT void ApplyDocumentMica( HWND hwnd, bool theme, bool micaalt, bool extend);
+    DLLEXPORT void ApplyUndocumentMica( HWND hwnd, bool theme, bool micaalt, bool extend);
+    DLLEXPORT void ChangeTitlebarColor(HWND hwnd, DWORD color);
+    DLLEXPORT void ChangeBorderColor(HWND hwnd, DWORD hexcolor);
+    DLLEXPORT void ChangeTitleColor(HWND hwnd, DWORD hexcolor);
+    DLLEXPORT void SetBorderType(HWND hwnd, int type);
 }

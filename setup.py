@@ -6,7 +6,7 @@ with open("README.md", "r") as file:
 
 setup(
     name="win32material",
-    version="1.0.1",
+    version="1.0.3",
     description="Apply some window effects to the Win32 Applications",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -16,7 +16,9 @@ setup(
         "": ["win32material.h"],
         "": ["win32material.cpp"],
     },
+    package_data={
+        "": ["*.dll"],
+    },
     url="https://github.com/littlewhitecloud/win32material",
-    include_package_data=True,
     packages=["win32material"],
 )
