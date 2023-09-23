@@ -5,7 +5,7 @@ with open("README.md", "r") as file:
     long_description = file.read()
 
 setup(
-    name="win32material",
+    name="win32style",
     version="1.0.3",
     description="Apply some window effects to the Win32 Applications",
     long_description=long_description,
@@ -20,5 +20,5 @@ setup(
         "": ["*.dll"],
     },
     url="https://github.com/littlewhitecloud/win32material",
-    packages=["win32material"],
+    packages=["win32style"],
 )
