@@ -1,0 +1,7 @@
+; win32material.def & win32material.cpp -> win32material.dll
+
+EXPORTS
+	ApplyBlur @1
+	ApplyAcrylic @2
+	ApplyDocumentMica @3
+	ApplyUndocumentMica @4

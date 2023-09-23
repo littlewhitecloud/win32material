@@ -1,0 +1,8 @@
+; win32style.def & win32style.cpp -> win32material.dll
+
+EXPORTS
+    ChangeTitlebarColor @1
+    ChangeBorderColor @2
+    ChangeTitleColor @3
+    SetBorderType @4
+    ApplyDarkMode @5
