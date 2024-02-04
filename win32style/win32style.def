@@ -1,8 +1,11 @@
-; win32style.def & win32style.cpp -> win32material.dll
+; win32style.def & win32style.cpp -> win32style.dll
 
 EXPORTS
-    ChangeTitlebarColor @1
-    ChangeBorderColor @2
-    ChangeTitleColor @3
-    SetBorderType @4
-    ApplyDarkMode @5
+	ApplyAcrylic @1
+	ApplyDocumentMica @2
+	ApplyUndocumentMica @3
+    ChangeTitlebarColor @4
+    ChangeBorderColor @5
+    ChangeTitleColor @6
+    SetBorderType @7
+    ApplyDarkMode @8
