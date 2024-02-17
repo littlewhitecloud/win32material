@@ -19,11 +19,11 @@ static void ExtendFrameIntoClientArea(HWND hwnd)
     DwmExtendFrameIntoClientArea(hwnd, &margins);
 }
 
-static void ApplyMicaEffect(HWND hwnd, bool theme, bool micaalt, bool extend, bool flag)
+static void ApplyMicaEffect(HWND hwnd, bool theme, bool micaalt, bool extend, bool flag = true)
 {
     // Set the mica value
     const int value = flag ? micaalt ? 0x04 : 0x02 : micaalt ? 0x04
-                                                             : 0x01;
+                                                            : 0x01;
     // Set the mica entry
     const int entry = flag ? 38 : 1029;
 
@@ -45,7 +45,7 @@ void ApplyDocumentMica(HWND hwnd, bool theme, bool micaalt, bool extend)
         micaalt: bool : determine which type of mica
         extend: bool : extend to the client area
     */
-    ApplyMicaEffect(hwnd, theme, micaalt, extend, true);
+    ApplyMicaEffect(hwnd, theme, micaalt, extend);
 }
 
 void ApplyUndocumentMica(HWND hwnd, bool theme, bool micaalt, bool extend)
@@ -60,7 +60,7 @@ void ApplyUndocumentMica(HWND hwnd, bool theme, bool micaalt, bool extend)
     ApplyMicaEffect(hwnd, theme, micaalt, extend, false);
 }
 
-void ApplyAcrylic(HWND hwnd, DWORD hexcolor)
+void ApplyAcrylic(HWND hwnd, bool extend = false, DWORD hexcolor = 0)
 {
     pfnSetWindowCompositionAttribute SetWindowCompositionAttribute = (pfnSetWindowCompositionAttribute)GetProcAddress(GetModuleHandle("user32.dll"), "SetWindowCompositionAttribute");
     DWORD gradientcolor = DWORD(0x50F5F5F5);
@@ -81,7 +81,8 @@ void ApplyAcrylic(HWND hwnd, DWORD hexcolor)
 
     // Set the window's backdrop
     SetWindowCompositionAttribute(hwnd, &data);
-    ExtendFrameIntoClientArea(hwnd);
+    if (extend)
+        ExtendFrameIntoClientArea(hwnd);
 }
 
 void ChangeTitlebarColor(HWND hwnd, DWORD hexcolor)

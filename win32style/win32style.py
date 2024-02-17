@@ -48,13 +48,13 @@ def ApplyMica(
         style.ApplyDocumentMica(hwnd, theme, micaalt, extend)
 
 
-def ApplyAcrylic(hwnd: int, hexcolor: int | bool = False) -> None:
+def ApplyAcrylic(hwnd: int, extend: bool = False, hexcolor: int | bool = False) -> None:
     """Apply acrylic effect to Win32 Applications
     Args:
         hwnd(int): The target window's hwnd
         hexcolor(int): The effect's hexcolor
     """
-    style.ApplyAcrylic(hwnd, hexcolor)
+    style.ApplyAcrylic(hwnd, extend, hexcolor)
 
 
 def ChangeTitlebarColor(hwnd: int, color: str) -> None:
