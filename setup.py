@@ -6,7 +6,7 @@ with open("README.md", "r") as file:
 
 setup(
     name="win32style",
-    version="1.0.3",
+    version="1.0.4",
     description="Apply some window effects to the Win32 Applications",
     long_description=long_description,
     long_description_content_type="text/markdown",
