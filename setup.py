@@ -1,4 +1,4 @@
-"""Setup for win32material"""
+"""Setup for win32style"""
 from distutils.core import setup
 
 with open("README.md", "r") as file:
@@ -12,13 +12,13 @@ setup(
     long_description_content_type="text/markdown",
     author="littlewhitecloud",
     exclude_package_data={
-        "": ["win32material.def"],
-        "": ["win32material.h"],
-        "": ["win32material.cpp"],
+        "": ["win32style.def"],
+        "": ["win32style.h"],
+        "": ["win32style.cpp"],
     },
     package_data={
         "": ["*.dll"],
     },
-    url="https://github.com/littlewhitecloud/win32material",
+    url="https://github.com/littlewhitecloud/win32style",
     packages=["win32style"],
 )
