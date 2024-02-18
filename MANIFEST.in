@@ -1,1 +1,1 @@
-include win32material win32material.dll
+include win32style win32style.dll
