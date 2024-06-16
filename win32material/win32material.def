@@ -1,0 +1,9 @@
+EXPORTS
+	ApplyAcrylic @1
+	ApplyDocumentMica @2
+	ApplyUndocumentMica @3
+    ChangeTitlebarColor @4
+    ChangeBorderColor @5
+    ChangeTitleColor @6
+    SetBorderType @7
+    ApplyDarkMode @8

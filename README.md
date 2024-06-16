@@ -1,9 +1,9 @@
-# win32style
+# win32material
 Apply some window effects to the Win32 Applications
 
 ## Installation
 ```console
-pip install win32material>=0.0.2
+pip install win32material==1.0.5
 ```
 
 ## Gallery
