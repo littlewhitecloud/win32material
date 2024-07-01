@@ -3,14 +3,18 @@ Apply some window effects to the Win32 Applications
 
 ## Installation
 ```console
-pip install win32material==1.0.5
+pip install win32material
 ```
 
 ## Gallery
 ![image](https://github.com/littlewhitecloud/win32material/assets/71159641/ffcea60c-718a-4315-9069-c1e4abc3f4cd)
 ![image](https://github.com/littlewhitecloud/win32material/assets/71159641/c9e522c5-d8c5-4563-a0e5-7fef39366a1d)
 ![image](https://github.com/littlewhitecloud/win32style/assets/71159641/760b5195-354e-428c-9f48-781e7a4dc3ae)
-
+```python
+from win32material import ...
+ApplyMica(hwnd, theme, micaalt)
+ApplyAcrylic(hwnd, extend)
+```
 
 ```python
 ChangeTitlebarColor(hwnd, "#111111")
