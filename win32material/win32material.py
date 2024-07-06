@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from ctypes import (POINTER, Structure, byref, c_int, c_uint32, c_ulong,
+from ctypes import (POINTER, Structure, byref, c_int,
                     pointer, sizeof, windll)
-from ctypes.wintypes import HWND
+from ctypes.wintypes import HWND, DWORD, ULONG
 from functools import partial
 from sys import getwindowsversion
 
@@ -30,18 +30,18 @@ class BORDERTYPE:
 
 class AccentPolicy(Structure):
     _fields_ = [
-        ("AccentState", c_uint32),
-        ("AccentFlags", c_uint32),
-        ("GradientColor", c_uint32),
-        ("AnimationId", c_uint32),
+        ("AccentState", DWORD),
+        ("AccentFlags", DWORD),
+        ("GradientColor", DWORD),
+        ("AnimationId", DWORD),
     ]
 
 
 class WindowCompositionAttributeData(Structure):
     _fields_ = [
-        ("Attribute", c_uint32),
+        ("Attribute", DWORD),
         ("Data", POINTER(AccentPolicy)),
-        ("SizeOfData", c_ulong),
+        ("SizeOfData", ULONG),
     ]
 
 
@@ -64,7 +64,7 @@ def ExtendFrameIntoClientArea(hwnd: HWND) -> None:
 
 
 def ApplyDarkMode(hwnd: HWND) -> None:
-    dwmapi.DwmSetWindowAttribute(hwnd, 20, byref(c_uint32(True)), sizeof(c_uint32))
+    dwmapi.DwmSetWindowAttribute(hwnd, 20, byref(DWORD(True)), sizeof(DWORD))
 
 
 def ApplyMica(
@@ -88,10 +88,16 @@ def ApplyMica(
         ApplyDarkMode(hwnd)
 
     # Set the window's backdrop
-    dwmapi.DwmSetWindowAttribute(hwnd, entry, byref(c_uint32(value)), sizeof(c_uint32))
+    dwmapi.DwmSetWindowAttribute(hwnd, entry, byref(DWORD(value)), sizeof(DWORD))
 
 
-def ApplyAcrylic(hwnd: HWND, extend: bool = False, hexcolor: str | None = None) -> None:
+def ApplyAcrylic(hwnd: HWND, theme: bool = False, extend: bool = False, hexcolor: str | None = None) -> None:
+    if theme:
+        ApplyDarkMode(hwnd)
+    
+    if extend:
+        ExtendFrameIntoClientArea(hwnd)
+
     accentpolicy: AccentPolicy = AccentPolicy()
     data: WindowCompositionAttributeData = WindowCompositionAttributeData()
     data.Attribute = 30
@@ -99,23 +105,23 @@ def ApplyAcrylic(hwnd: HWND, extend: bool = False, hexcolor: str | None = None) 
     data.Data = pointer(accentpolicy)
 
     accentpolicy.AccentState = 3
+
     if hexcolor:
-        accentpolicy.GradientColor = c_uint32(strtohex(hexcolor))
+        accentpolicy.GradientColor = DWORD(strtohex(hexcolor))
 
     user32.SetWindowCompositionAttribute(hwnd, pointer(data))
 
-    if extend:
-        ExtendFrameIntoClientArea(hwnd)
+
 
 
 def SetWindowAttribute(hwnd: HWND, entry: int, hexcolor: str):
     dwmapi.DwmSetWindowAttribute(
-        hwnd, entry, byref(c_uint32(strtohex(hexcolor))), sizeof(c_uint32)
+        hwnd, entry, byref(DWORD(strtohex(hexcolor))), sizeof(DWORD)
     )
 
 
 def SetWindowBorder(hwnd: HWND, type: BORDERTYPE | int) -> None:
-    dwmapi.DwmSetWindowAttribute(hwnd, 33, byref(c_uint32(type)), sizeof(c_uint32))
+    dwmapi.DwmSetWindowAttribute(hwnd, 33, byref(DWORD(type)), sizeof(DWORD))
 
 
 SetBorderColor = partial(SetWindowAttribute, entry=34)
