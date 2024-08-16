@@ -47,3 +47,7 @@ SetBorderType(hwnd, BORDERTYPE.SMALLROUND)
 ```
 ![image](https://github.com/littlewhitecloud/win32style/assets/71159641/f06c4917-757f-48c5-b411-ed243f8fdf1c)
 
+### Thanks
+Get the idea of applying mica from [https://github.com/marticliment/win32mica/](https://github.com/marticliment/win32mica/)
+
+And some other ideas from [https://github.com/Akascape/py-win-styles](https://github.com/Akascape/py-window-styles)
