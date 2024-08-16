@@ -66,7 +66,7 @@ def ExtendFrameIntoClientArea(hwnd: HWND) -> None:
 def ApplyDarkMode(hwnd: HWND) -> None:
     dwmapi.DwmSetWindowAttribute(hwnd, 20, byref(DWORD(True)), sizeof(DWORD))
 
-
+# https://github.com/marticliment/win32mica/
 def ApplyMica(
     hwnd: HWND, theme: bool = False, micaalt: bool = True, extend: bool = True
 ) -> None:
