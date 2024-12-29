@@ -1,9 +1,17 @@
 # win32material
-Apply some window effects to the Win32 Applications
+Apply some window effects like `mica` `micaalt` `acrylic` to the Win32 Applications.
+Can also change the window's titlebar color, border type and so on. (Windows 11 only)
 
 ## Installation
 ```console
-pip install win32material
+pip install win32material --user
+```
+
+## Help
+How to get the hwnd of the window?
+```python
+from ctypes import windll, c_char_p
+hwnd = windll.user32.FindWindowW(c_char_p(None), "{Your window name}")
 ```
 
 ## Gallery
@@ -11,9 +19,10 @@ pip install win32material
 ![image](https://github.com/littlewhitecloud/win32material/assets/71159641/c9e522c5-d8c5-4563-a0e5-7fef39366a1d)
 ![image](https://github.com/littlewhitecloud/win32style/assets/71159641/760b5195-354e-428c-9f48-781e7a4dc3ae)
 ```python
-from win32material import ...
-ApplyMica(hwnd, theme, micaalt)
-ApplyAcrylic(hwnd, extend)
+from win32material import ApplyMica, ApplyAcrylic
+
+# ApplyMica(hwnd, theme, micaalt)
+# ApplyAcrylic(hwnd, extend)
 ```
 
 ```python
@@ -49,5 +58,4 @@ SetBorderType(hwnd, BORDERTYPE.SMALLROUND)
 
 ### Thanks
 Get the idea of applying mica from [https://github.com/marticliment/win32mica/](https://github.com/marticliment/win32mica/)
-
 And some other ideas from [https://github.com/Akascape/py-win-styles](https://github.com/Akascape/py-window-styles)
