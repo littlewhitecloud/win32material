@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-from ctypes import (POINTER, Structure, byref, c_int,
-                    pointer, sizeof, windll)
-from ctypes.wintypes import HWND, DWORD, ULONG
+from ctypes import POINTER, Structure, byref, c_int, pointer, sizeof, windll
+from ctypes.wintypes import DWORD, HWND, ULONG
 from functools import partial
 from sys import getwindowsversion
 
@@ -66,6 +65,7 @@ def ExtendFrameIntoClientArea(hwnd: HWND) -> None:
 def ApplyDarkMode(hwnd: HWND) -> None:
     dwmapi.DwmSetWindowAttribute(hwnd, 20, byref(DWORD(True)), sizeof(DWORD))
 
+
 # https://github.com/marticliment/win32mica/
 def ApplyMica(
     hwnd: HWND, theme: bool = False, micaalt: bool = True, extend: bool = True
@@ -91,10 +91,12 @@ def ApplyMica(
     dwmapi.DwmSetWindowAttribute(hwnd, entry, byref(DWORD(value)), sizeof(DWORD))
 
 
-def ApplyAcrylic(hwnd: HWND, theme: bool = False, extend: bool = False, hexcolor: str | None = None) -> None:
+def ApplyAcrylic(
+    hwnd: HWND, theme: bool = False, extend: bool = False, hexcolor: str | None = None
+) -> None:
     if theme:
         ApplyDarkMode(hwnd)
-    
+
     if extend:
         ExtendFrameIntoClientArea(hwnd)
 
@@ -110,8 +112,6 @@ def ApplyAcrylic(hwnd: HWND, theme: bool = False, extend: bool = False, hexcolor
         accentpolicy.GradientColor = DWORD(strtohex(hexcolor))
 
     user32.SetWindowCompositionAttribute(hwnd, pointer(data))
-
-
 
 
 def SetWindowAttribute(hwnd: HWND, entry: int, hexcolor: str):
